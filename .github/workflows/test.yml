@@ -1,0 +1,35 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.platform }}
+    services:
+      redis:
+        image: "redis:6"
+        ports:
+          - 6379:6379
+    strategy:
+      matrix:
+        go-version: [ 1.x ]
+        platform: [ ubuntu-latest ]
+    name: Test - ${{ matrix.go-version }}
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go-version }}
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build core module
+        run: go build -v ./...
+      - name: Test core module
+        run: go test -race -v -coverprofile=coverage.txt -covermode=atomic ./...
+      - name: Benchmark Test
+        run: go test -run=^$ -bench=. -loglevel=debug ./...
+

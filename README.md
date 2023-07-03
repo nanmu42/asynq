@@ -1,3 +1,19 @@
+# This is a Fork
+
+This is a fork of hibiken/asynq by Ken Hibino, with some patches to ease my usage.
+
+Due to bandwidth limit, I have no plan to merge the changes back into upstream.
+
+## Usage
+
+```bash
+go mod edit -replace github.com/hibiken/asynq=github.com/nanmu42/asynq@latest
+```
+
+```
+import "github.com/hibiken/asynq"
+```
+
 <img src="https://user-images.githubusercontent.com/11155743/114697792-ffbfa580-9d26-11eb-8e5b-33bef69476dc.png" alt="Asynq logo" width="360px" />
 
 # Simple, reliable & efficient distributed task queue in Go
